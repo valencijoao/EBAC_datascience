@@ -1,6 +1,6 @@
 import pandas as pd
 
-df = pd.read_csv('/data/ecommerce2g.csv')
+df = pd.read_csv('/data/ecommerce_ex3.csv')
 df = df.drop_duplicates()
 df = df.dropna(thresh=8)
 
@@ -30,17 +30,38 @@ df[ajuste_colunas] = df[ajuste_colunas].fillna('Não Definido')
 
 # Converter a coluna 'Temporada' para letras minúsculas
 
+# Remover linhas duplicadas
+
+# Remover linhas duplicadas
+
+# Remover linhas com menos de 8 valores não nulos
+
+# O parâmetro 'thresh' define o número mínimo de valores não nulos necessários para manter a linha
+
 letras_minusculas = ['Marca', 'Material', 'Temporada']
 df[letras_minusculas] = df[letras_minusculas].apply(lambda x: x.str.lower())
 
 print('Colunas convertidas para letras minúsculas:\n', letras_minusculas)
 
+# Exercício 3:
 
-# Remover linhas duplicadas
+# Calcular o intervalo interquartil (IQR)
+q1 = df['N_Avaliacoes'].quantile(0.25)
+q3 = df['N_Avaliacoes'].quantile(0.75)
+iqr = q3 - q1
+
+# Definir o limite superior para identificar outliers
+limite_alto = q3 + 1.5 * iqr
+
+# Filtrar os produtos que possuem um número de avaliações maior que o limite superior
+df_avaliados = df[df['N_Avaliacoes'] > limite_alto]
 
 
-# Remover linhas com menos de 8 valores não nulos
-# O parâmetro 'thresh' define o número mínimo de valores não nulos necessários para manter a linha
+
+
+
+
+
 
 
 
