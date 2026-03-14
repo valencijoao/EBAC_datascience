@@ -18,6 +18,13 @@ educacao_ordem = {'Ensino Fundamental': 1,
 }
 df['nivel_educacao_ordinal'] = df['nivel_educacao'].map(educacao_ordem)
 
-print(df.head())
+df['area_atuacao_cod'] = df['area_atuacao'].astype('category').cat.codes
+
+label_encoder = LabelEncoder()
+
+df['estado_cod'] = label_encoder.fit_transform(df['estado'])
+
+print('DataFrame após transformar as colunas nivel_educacao e area_atuacao_cod', df.head())
+
 
 
