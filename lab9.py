@@ -1,4 +1,5 @@
 import pandas as pd
+from sklearn.preprocessing import MinMaxScaler, LabelEncoder
 
 df = pd.read_csv('/data/ecommerce_tratados.csv')
 
@@ -18,3 +19,14 @@ df['preço'] = df['reais'] + (df['centavos']/100)
 
 # Remova os campos citados nas intruções e armazene novamente na variável `df`
 df = df.drop(['reais','centavos','condicao','condicao_atual'], axis= 1)
+
+scaler = MinMaxScaler()
+df['Nota_MinMax'] = scaler.fit_transform(df[['Nota']])
+df['N_Avaliações_MinMax'] = scaler.fit_transform(df[['N_Avaliações']])
+df['Desconto_MinMax'] = scaler.fit_transform(df[['Desconto']])
+df['Preco_MinMax'] = scaler.fit_transform(df[['Preco']])
+
+encoder = LabelEncoder()
+df['Marca_Cod'] = encoder.fit_transform(df[['Marca']])
+df['Material_Cod'] = encoder.fit_transform(df[['Material']])
+df['Temporada_Cod'] = encoder.fit_transform(df[['Temporada']])
